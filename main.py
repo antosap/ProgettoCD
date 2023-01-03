@@ -1,7 +1,6 @@
 import os
 import time
 
-
 class Solution:
     # Funzione per applicare BWT
     def BWT_Encode(self, s):
@@ -61,7 +60,7 @@ class Solution:
 
     # Funzione per applicare iLZW
 
-    def iLZW_Decode(self, iHuffmanOutput):
+    def iLZW_Decode(self, iRleOutput):
         """Decompress a list of output ks to a string."""
         from io import StringIO
 
@@ -73,9 +72,9 @@ class Solution:
         # use StringIO, otherwise this becomes O(N^2)
         # due to string concatenation in a loop
         result = StringIO()
-        w = chr(iHuffmanOutput.pop(0))
+        w = chr(iRleOutput.pop(0))
         result.write(w)
-        for k in iHuffmanOutput:
+        for k in iRleOutput:
             if k in dictionary:
                 entry = dictionary[k]
             elif k == dict_size:
@@ -109,10 +108,10 @@ class Solution:
 
     # Funzione per applicare iRLE
 
-    def iRLE(self, huffmanOutput):
+    def iRLE(self, iLZWOutput):
         output = ""
         num = ""
-        for i in huffmanOutput:
+        for i in iLZWOutput:
             if i.isalpha():
                 output += i * int(num)
                 num = ""
